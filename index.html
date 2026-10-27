@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Traffic Management System</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 35px 18px;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #eaf1ff;
+    background: #0b1220;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    padding: 32px;
+    border-radius: 20px;
+    border: 1px solid #293750;
+    background: #151f32;
+    box-shadow: 0 20px 50px rgba(0,0,0,.3);
+}
+
+.header {
+    padding: 24px;
+    margin-bottom: 28px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #1168df, #263fa7);
+}
+
+.brand {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #dce9ff;
+}
+
+h1 {
+    margin: 14px 0 10px;
+    font-size: 28px;
+}
+
+.header p {
+    margin: 0;
+    color: #dce9ff;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+label {
+    display: block;
+    margin-bottom: 9px;
+    color: #eaf1ff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 14px 15px;
+    color: #f1f5ff;
+    background: #0d1728;
+    border: 1px solid #354761;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #8292aa;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #3b91ff;
+    box-shadow: 0 0 0 3px rgba(59,145,255,.15);
+}
+
+select option {
+    background: #151f32;
+    color: white;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 115px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background: linear-gradient(135deg, #1677f9, #2454d8);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(22,119,249,.25);
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.links a {
+    color: #80baff;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.links a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.note {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #293750;
+    color: #8292aa;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 16px 10px;
+    }
+
+    .container {
+        padding: 18px;
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+    <header class="header">
+        <div class="brand">Smart Traffic Management System</div>
+        <h1>Traffic Incident Report</h1>
+        <p>Report congestion and help keep roads safer for everyone.</p>
+    </header>
+
+    <form action="process.php" method="POST">
+
+        <div class="form-group">
+            <label for="junction_name">Junction Name / Area</label>
+            <input
+                type="text"
+                id="junction_name"
+                name="junction_name"
+                placeholder="e.g., Connaught Place"
+                maxlength="100"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="congestion_level">Congestion Level</label>
+            <select
+                id="congestion_level"
+                name="congestion_level"
+                required
+            >
+                <option value="">Select traffic status</option>
+                <option value="Normal Flow">Normal Flow</option>
+                <option value="Moderate Delay">Moderate Delay</option>
+                <option value="Severe Gridlock">Severe Gridlock</option>
+                <option value="Emergency Priority Route">
+                    Emergency Priority Route
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description / Notes</label>
+            <textarea
+                id="description"
+                name="description"
+                placeholder="Describe the traffic situation..."
+            ></textarea>
+        </div>
+
+        <button type="submit">Submit Traffic Report →</button>
+
+    </form>
+
+    <nav class="links">
+        <a href="live_map.php">View Live Map</a>
+        <a href="view_reports.php">View Traffic Reports</a>
+    </nav>
+
+    <div class="note">
+        Smart Traffic Management System · Group Project
+    </div>
+
+</div>
+
+<script>
+document.querySelector("form").addEventListener("submit", function(event) {
+    let locationInput = document.getElementById("junction_name").value; // Fixed ID here
+    
+    // Boundary Value Test: Location name must be at least 3 characters long
+    if (locationInput.trim().length < 3) {
+        alert("QA Error: Location name must be at least 3 characters long!");
+        event.preventDefault(); // Stop form submission from crashing database
+    }
+});
+</script>
+
+</body>
+</html>
